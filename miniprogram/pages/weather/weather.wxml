@@ -1,0 +1,20 @@
+<!--miniprogram/pages/weather/weather.wxml-->
+<!-- <text>miniprogram/pages/weather/weather.wxml</text> -->
+
+<!-- <button bindtap="requestWeather">请求</button> -->
+
+<view class=".center">
+  <text>{{city}}</text>
+</view>
+<view class=".center">
+  <text>{{realtime_temp}}</text>
+</view>
+<view class=".center">
+  <text>{{realtime_humidity}}</text>
+</view>
+<view class=".center">
+  <text>{{realtime_weather}}</text>
+</view>
+<view class=".center">
+  <text>{{realtime_wind_direct}}</text>
+</view>
