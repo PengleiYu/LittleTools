@@ -4,17 +4,23 @@
 <!-- <button bindtap="requestWeather">请求</button> -->
 
 <view class=".center">
-  <text>{{city}}</text>
+  <text>城市：{{city}}</text>
 </view>
 <view class=".center">
-  <text>{{realtime_temp}}</text>
+  <text>温度：{{realtime_temp}}</text>
 </view>
 <view class=".center">
-  <text>{{realtime_humidity}}</text>
+  <text>湿度：{{realtime_humidity}}</text>
 </view>
 <view class=".center">
-  <text>{{realtime_weather}}</text>
+  <text>天气：{{realtime_weather}}</text>
 </view>
 <view class=".center">
-  <text>{{realtime_wind_direct}}</text>
+  <text>风向：{{realtime_wind_direct}}</text>
+</view>
+<view class=".center">
+  <text>风力：{{realtime_wind_power}}</text>
+</view>
+<view class=".center">
+  <text>空气质量指数：{{realtime_air_quality_index}}</text>
 </view>

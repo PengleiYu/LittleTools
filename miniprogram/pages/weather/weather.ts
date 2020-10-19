@@ -10,6 +10,8 @@ Page({
         realtime_humidity: "",
         realtime_weather: "",
         realtime_wind_direct: "",
+        realtime_wind_power: "",
+        realtime_air_quality_index: "",
     },
     log2Text(any: any) {
         this.setData({
@@ -30,8 +32,6 @@ Page({
                 _this.log2Text(response_data);
 
                 if (response_data.error_code === 0) {
-
-
                     let realtime = response_data.result.realtime;
                     _this.setData({
                         city: response_data.result.city,
@@ -39,6 +39,8 @@ Page({
                         realtime_humidity: realtime.humidity,
                         realtime_weather: realtime.info,
                         realtime_wind_direct: realtime.direct,
+                        realtime_wind_power: realtime.power,
+                        realtime_air_quality_index: realtime.aqi,
                     })
                 }
             },
