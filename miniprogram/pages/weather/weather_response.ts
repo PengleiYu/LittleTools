@@ -27,14 +27,13 @@ export type Result = {
     future: Future[];
 }
 
-export type Weather = {
+export type WeatherResponse = {
     reason: string;
     result: Result;
     error_code: number;
 }
-
 /**
-  {
+ {
 	"reason":"查询成功!",
 	"result":{
 		"city":"海淀",
