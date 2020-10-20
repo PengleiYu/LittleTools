@@ -45,7 +45,7 @@ Page({
     },
     async onReady() {
         let date = await readStorage<Date>(KEY_WEATHER_SAVE_TIME).catch(_ => undefined);
-        console.log(`read last save date: ${date}`)
+        console.log(`read last saved date: ${date}`)
         let weather: WeatherResult | undefined;
         if (date) {
             let isFreshData = date.getDay() - new Date().getDay() === 0;
@@ -54,7 +54,7 @@ Page({
                 weather = await readStorage<WeatherResult>(KEY_WEATHER).catch(_ => undefined);
             }
         }
-        console.log(`read weather: ${weather}`);
+        console.log(`read last saved weather: ${weather}`);
         if (!weather) {
             console.log(`get weather failed, request...`)
             weather = await requestWeatherImpl();
