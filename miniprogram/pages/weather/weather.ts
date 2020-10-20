@@ -1,5 +1,5 @@
 import {WeatherResponse, Result as WeatherResult} from "./weather_response";
-import {readStorage, request, setStorage} from "../../utils/wx_util";
+import {code2Session, login, readStorage, request, setStorage} from "../../utils/wx_util";
 
 let url = "https://apis.juhe.cn/simpleWeather/query";
 let KEY_WEATHER = "key_weather";
@@ -44,6 +44,7 @@ Page({
         })
     },
     async onReady() {
+        login().then()
         let date = await readStorage<Date>(KEY_WEATHER_SAVE_TIME).catch(_ => undefined);
         console.log(`read last saved date: ${date}`)
         let weather: WeatherResult | undefined;
@@ -63,5 +64,12 @@ Page({
         setStorage(KEY_WEATHER, weather).then()
         this.setupWeather(weather)
     },
+
+    async login() {
+        let jsCode = await login();
+        console.log(`jsCode=${jsCode}`)
+        let authSession = await code2Session(jsCode);
+        console.log(`authSession=${JSON.stringify(authSession)}`)
+    }
 })
 
