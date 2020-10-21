@@ -73,7 +73,8 @@ export async function checkSession(): Promise<boolean> {
 }
 
 export async function code2Session(js_code: string): Promise<AuthSession> {
-    return request("https://api.weixin.qq.com/sns/jscode2session", {
+    let url = "https://www.penglei.tech:8888"
+    return request(url, {
         appid: APP_CONFIG.appId,
         secret: APP_CONFIG.secret,
         js_code: js_code,

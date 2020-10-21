@@ -8,9 +8,11 @@ async function login() {
         console.log(`read session key: ${session_key}`)
         let valid = await checkSession();
         if (valid) {
+            console.log("登录未过期")
             return
         }
         wx.showToast({title: "checkSession过期，重新请求"})
+        console.log("checkSession过期，重新请求")
     }
     let jsCode = await loginImpl();
     console.log(`jsCode=${jsCode}`)
