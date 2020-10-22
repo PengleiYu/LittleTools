@@ -1,5 +1,8 @@
-import {WeatherResponse, Result as WeatherResult} from "./weather_response";
+import {Result as WeatherResult, WeatherResponse} from "./weather_response";
 import {code2Session, login, readStorage, request, setStorage} from "../../utils/wx_util";
+import {BindFunctionResult} from "../../utils/wx_beans";
+import {Keys} from "../../utils/constants";
+import GetUserInfoSuccessCallbackResult = WechatMiniprogram.GetUserInfoSuccessCallbackResult;
 
 let url = "https://apis.juhe.cn/simpleWeather/query";
 let KEY_WEATHER = "key_weather";
@@ -25,6 +28,7 @@ Page({
         realtime_wind_direct: "",
         realtime_wind_power: "",
         realtime_air_quality_index: "",
+        has_user_info: false,
     },
     log2Text(any: any) {
         this.setData({
@@ -64,12 +68,31 @@ Page({
         setStorage(KEY_WEATHER, weather).then()
         this.setupWeather(weather)
     },
+    async onLoad(_: Record<string, string | undefined>) {
+        let userInfo = await readStorage(Keys.KEY_USER_INFO).catch(_ => undefined);
+        this.setData({
+            has_user_info: userInfo !== undefined
+        })
+    },
 
     async login() {
         let jsCode = await login();
         console.log(`jsCode=${jsCode}`)
         let authSession = await code2Session(jsCode);
         console.log(`authSession=${JSON.stringify(authSession)}`)
+    },
+    async getUserInfo(result: BindFunctionResult<GetUserInfoSuccessCallbackResult>) {
+        console.log(`getUserInfo: ${JSON.stringify(result.detail)}`)
+        await setStorage(Keys.KEY_USER_INFO, result.detail)
+        this.setData({
+            has_user_info: true
+        })
+    },
+    //只有企业用户才能使用
+    getPhoneNumber(e: any) {
+        console.log(e.detail.errMsg)
+        console.log(e.detail.iv)
+        console.log(e.detail.encryptedData)
     }
 })
 

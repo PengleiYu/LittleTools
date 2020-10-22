@@ -10,4 +10,5 @@ export const APP_CONFIG: AppConfig = {
 
 export class Keys {
     static KEY_SESSION_KEY = "key_session_key";
+    static KEY_USER_INFO = "key_user_info";
 }

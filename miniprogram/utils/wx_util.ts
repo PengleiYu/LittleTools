@@ -1,5 +1,6 @@
 import {APP_CONFIG} from "./constants";
 import {AuthSession} from "./wx_beans";
+import GetUserInfoSuccessCallbackResult = WechatMiniprogram.GetUserInfoSuccessCallbackResult;
 
 export async function readStorage<T>(key: string): Promise<T> {
     return new Promise<T>((resolve, reject) => {
@@ -80,4 +81,18 @@ export async function code2Session(js_code: string): Promise<AuthSession> {
         js_code: js_code,
         // grant_type: "authorization_code",
     })
+}
+
+export async function getUserInfo(): Promise<GetUserInfoSuccessCallbackResult> {
+    return new Promise(((resolve, reject) => {
+        wx.getUserInfo({
+            withCredentials: true,
+            success(result) {
+                resolve(result)
+            },
+            fail(err) {
+                reject(new Error(err.errMsg))
+            }
+        })
+    }))
 }
