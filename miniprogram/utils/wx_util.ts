@@ -74,12 +74,21 @@ export async function checkSession(): Promise<boolean> {
 }
 
 export async function code2Session(js_code: string): Promise<AuthSession> {
-    let url = "https://www.penglei.tech:8888"
+    let url = "https://www.penglei.tech:8888/wx_mini/code2session"
     return request(url, {
         appid: APP_CONFIG.appId,
         secret: APP_CONFIG.secret,
         js_code: js_code,
         // grant_type: "authorization_code",
+    })
+}
+
+export async function decodeData(encryptedData: string, iv: string, sessionKey: string) {
+    let url = "https://www.penglei.tech:8888/wx_mini/decode"
+    return request(url, {
+        encryptedData: encryptedData,
+        iv: iv,
+        sessionKey: sessionKey,
     })
 }
 

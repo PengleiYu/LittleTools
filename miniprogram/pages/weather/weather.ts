@@ -1,5 +1,5 @@
 import {Result as WeatherResult, WeatherResponse} from "./weather_response";
-import {code2Session, login, readStorage, request, setStorage} from "../../utils/wx_util";
+import {code2Session, decodeData, login, readStorage, request, setStorage} from "../../utils/wx_util";
 import {BindFunctionResult} from "../../utils/wx_beans";
 import {Keys} from "../../utils/constants";
 import GetUserInfoSuccessCallbackResult = WechatMiniprogram.GetUserInfoSuccessCallbackResult;
@@ -82,11 +82,15 @@ Page({
         console.log(`authSession=${JSON.stringify(authSession)}`)
     },
     async getUserInfo(result: BindFunctionResult<GetUserInfoSuccessCallbackResult>) {
-        console.log(`getUserInfo: ${JSON.stringify(result.detail)}`)
-        await setStorage(Keys.KEY_USER_INFO, result.detail)
+        let userInfo = result.detail;
+        console.log(`getUserInfo: ${JSON.stringify(userInfo)}`)
+        await setStorage(Keys.KEY_USER_INFO, userInfo)
         this.setData({
             has_user_info: true
         })
+        let session_key = await readStorage<string>(Keys.KEY_SESSION_KEY);
+        let data = await decodeData(userInfo.encryptedData, userInfo.iv, session_key);
+        console.log(`decode data: ${JSON.stringify(data)}`)
     },
     //只有企业用户才能使用
     getPhoneNumber(e: any) {
