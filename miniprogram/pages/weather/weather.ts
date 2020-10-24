@@ -1,5 +1,5 @@
 import {Result as WeatherResult, WeatherResponse} from "./weather_response";
-import {code2Session, login, readStorage, request, setStorage} from "../../utils/wx_util";
+import {login, readStorage, request, setStorage} from "../../utils/wx_util";
 import {Keys} from "../../utils/constants";
 
 let url = "https://apis.juhe.cn/simpleWeather/query";
@@ -72,18 +72,4 @@ Page({
             has_user_info: userInfo !== undefined
         })
     },
-
-    async login() {
-        let jsCode = await login();
-        console.log(`jsCode=${jsCode}`)
-        let authSession = await code2Session(jsCode);
-        console.log(`authSession=${JSON.stringify(authSession)}`)
-    },
-    //只有企业用户才能使用
-    getPhoneNumber(e: any) {
-        console.log(e.detail.errMsg)
-        console.log(e.detail.iv)
-        console.log(e.detail.encryptedData)
-    }
 })
-

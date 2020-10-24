@@ -11,6 +11,7 @@
     <text class="user-motto">{{motto}}</text>
   </view> -->
   <view>
-    <button>天气工具</button>
+    <!-- <button bindtap="openWeather">天气工具</button> -->
+    <navigator url="/pages/weather/weather">查询天气</navigator>
   </view>
 </view>

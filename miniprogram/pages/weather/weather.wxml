@@ -24,5 +24,3 @@
 <view class=".center">
   <text>空气质量指数：{{realtime_air_quality_index}}</text>
 </view>
-
-<button open-type="getUserInfo"  wx:if="{{!has_user_info}}" bindgetuserinfo="getUserInfo">getUserInfo</button>

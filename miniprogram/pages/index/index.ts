@@ -64,4 +64,7 @@ Page<IIndexData, IIndexPage>({
         //     hasUserInfo: true,
         // })
     },
+    openWeather(_: any) {
+
+    }
 })
