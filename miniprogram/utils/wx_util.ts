@@ -10,7 +10,7 @@ export async function readStorage<T>(key: string): Promise<T> {
                     resolve(result.data)
                 },
                 fail(err) {
-                    reject(new Error(err.errMsg))
+                    reject(new Error(err.errMsg + ", key = " + key))
                 }
             })
         }

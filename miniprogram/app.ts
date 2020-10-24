@@ -1,6 +1,8 @@
 // app.ts
-import {checkSession, code2Session, login, setStorage} from "./utils/wx_util";
+import {checkSession, code2Session, login, readStorage, setStorage} from "./utils/wx_util";
 import {Keys} from "./utils/constants";
+import {IAppOption} from "../typings";
+import GetUserInfoSuccessCallbackResult = WechatMiniprogram.GetUserInfoSuccessCallbackResult;
 
 async function prefetchData() {
     // 确保登录
@@ -26,7 +28,14 @@ App<IAppOption>({
 
         // 登录
         prefetchData().then()
-
+        let result = await readStorage<GetUserInfoSuccessCallbackResult>(Keys.KEY_USER_INFO).catch(_ => undefined)
+        if (result) {
+            this.globalData.userInfo = result.userInfo;
+            console.log(`read userInfo: ${JSON.stringify(result)}`)
+            if (this.userInfoReadyCallback) {
+                this.userInfoReadyCallback(result.userInfo)
+            }
+        }
         // 获取用户信息
         // wx.getSetting({
         //     success: res => {
